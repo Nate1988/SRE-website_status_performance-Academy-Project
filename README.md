@@ -440,9 +440,11 @@ if __name__ == '__main__':
 
   Note 3: This file needs to be place in the same application folder
     
-2.8)  **Building the Container Image with Docker:** *We need to go to the Application path, then run the below commands:*
+2.8)  **Building the Container Image with Docker:** 
 
-  My application location path:\Academy\Github repository\SRE-website_status_performance\Applications
+We need to go to the Application path, then run the below commands:
+
+  My application location path:\Academy\Github repository\SRE-website_status_performance\Applications\1 App and files
 
   To Create the Image
 ```bash
