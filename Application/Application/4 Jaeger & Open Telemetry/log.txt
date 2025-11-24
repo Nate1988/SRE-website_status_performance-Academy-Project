@@ -1,0 +1,191 @@
+kreator@Dreams:~$ cd "/mnt/c/Users/kreat/OneDrive/Desktop/Academy/Github repository/SRE-website_status_performance/Application/Exercise 8.1/jaeger"
+kreator@Dreams:/mnt/c/Users/kreat/OneDrive/Desktop/Academy/Github repository/SRE-website_status_performance/Application/Exercise 8.1/jaeger$ docker-compose down
+WARN[0001] /mnt/c/Users/kreat/OneDrive/Desktop/Academy/Github repository/SRE-website_status_performance/Application/Exercise 8.1/jaeger/docker-compose.yaml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion
+[+] Running 4/4
+ ✔ Container jaeger-website-status-app-1  Removed                                                                  0.2s
+ ✔ Container jaeger-otel-collector-1      Removed                                                                  0.1s
+ ✔ Container jaeger-jaeger-1              Removed                                                                  0.2s
+ ✔ Network jaeger_default                 Removed                                                                  0.6s
+kreator@Dreams:/mnt/c/Users/kreat/OneDrive/Desktop/Academy/Github repository/SRE-website_status_performance/Application/Exercise 8.1/jaeger$ docker-compose up --build
+WARN[0000] /mnt/c/Users/kreat/OneDrive/Desktop/Academy/Github repository/SRE-website_status_performance/Application/Exercise 8.1/jaeger/docker-compose.yaml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion
+[+] Building 4.6s (13/13) FINISHED
+ => [internal] load local bake definitions                                                                         0.0s
+ => => reading from stdin 586B                                                                                     0.0s
+ => [internal] load build definition from Dockerfile                                                               0.1s
+ => => transferring dockerfile: 354B                                                                               0.1s
+ => [internal] load metadata for docker.io/library/python:3.11-slim                                                1.4s
+ => [auth] library/python:pull token for registry-1.docker.io                                                      0.0s
+ => [internal] load .dockerignore                                                                                  0.0s
+ => => transferring context: 2B                                                                                    0.0s
+ => [1/5] FROM docker.io/library/python:3.11-slim@sha256:a0939570b38cddeb861b8e75d20b1c8218b21562b18f301171904b54  0.1s
+ => => resolve docker.io/library/python:3.11-slim@sha256:a0939570b38cddeb861b8e75d20b1c8218b21562b18f301171904b54  0.1s
+ => [internal] load build context                                                                                  0.1s
+ => => transferring context: 87B                                                                                   0.0s
+ => CACHED [2/5] WORKDIR /app                                                                                      0.0s
+ => CACHED [3/5] COPY requirements.txt .                                                                           0.0s
+ => CACHED [4/5] RUN apt-get update && apt-get install -y build-essential curl &&     pip install --upgrade pip &  0.0s
+ => CACHED [5/5] COPY website_status_performance.py .                                                              0.0s
+ => exporting to image                                                                                             0.3s
+ => => exporting layers                                                                                            0.0s
+ => => exporting manifest sha256:75a18fab1bbaac15cb7de61027ff28518e0fadd7a38c22ca5738ee05a6b26f4b                  0.0s
+ => => exporting config sha256:36a378b8cfc03c414e2a8c53812ef2cbe9a3965a4cfc6d8f56be1141ad91658c                    0.0s
+ => => exporting attestation manifest sha256:98b050f7d4774309ccbb292af7eb823760a68edb7ee9515feec61d8760620c09      0.0s
+ => => exporting manifest list sha256:555d5869fafffcc47246b57016d4a688ff07b40d190044803a6e1cdb2deef0f7             0.0s
+ => => naming to docker.io/library/jaeger-website-status-app:latest                                                0.0s
+ => => unpacking to docker.io/library/jaeger-website-status-app:latest                                             0.0s
+ => resolving provenance for metadata file                                                                         0.1s
+[+] Running 5/5
+ ✔ website-status-app                     Built                                                                    0.0s
+ ✔ Network jaeger_default                 Created                                                                  0.2s
+ ✔ Container jaeger-jaeger-1              Created                                                                  0.5s
+ ✔ Container jaeger-otel-collector-1      Created                                                                  0.4s
+ ✔ Container jaeger-website-status-app-1  Created                                                                  0.5s
+Attaching to jaeger-1, otel-collector-1, website-status-app-1
+jaeger-1              | 2025/09/15 04:59:14 maxprocs: Leaving GOMAXPROCS=4: CPU quota undefined
+jaeger-1              | 2025/09/15 04:59:14 application version: git-commit=2d351c3f30072cae7f5755be20e34c2697b9e3b5, git-version=v1.49.0, build-date=2023-09-07T13:13:08Z
+jaeger-1              | {"level":"info","ts":1757912355.5549538,"caller":"flags/service.go:119","msg":"Mounting metrics handler on admin server","route":"/metrics"}
+jaeger-1              | {"level":"info","ts":1757912355.5584395,"caller":"flags/service.go:125","msg":"Mounting expvar handler on admin server","route":"/debug/vars"}
+jaeger-1              | {"level":"info","ts":1757912355.5620453,"caller":"flags/admin.go:129","msg":"Mounting health check on admin server","route":"/"}
+jaeger-1              | {"level":"info","ts":1757912355.5635555,"caller":"flags/admin.go:143","msg":"Starting admin HTTP server","http-addr":":14269"}
+jaeger-1              | {"level":"info","ts":1757912355.5681674,"caller":"flags/admin.go:121","msg":"Admin server started","http.host-port":"[::]:14269","health-status":"unavailable"}
+jaeger-1              | {"level":"info","ts":1757912355.5747178,"caller":"grpc@v1.57.0/clientconn.go:477","msg":"[core][Channel #1] Channel created","system":"grpc","grpc_log":true}
+jaeger-1              | {"level":"info","ts":1757912355.5813804,"caller":"grpc@v1.57.0/clientconn.go:1786","msg":"[core][Channel #1] original dial target is: \"localhost:4317\"","system":"grpc","grpc_log":true}
+jaeger-1              | {"level":"info","ts":1757912355.5823827,"caller":"grpc@v1.57.0/clientconn.go:1793","msg":"[core][Channel #1] parsed dial target is: {URL:{Scheme:localhost Opaque:4317 User: Host: Path: RawPath: OmitHost:false ForceQuery:false RawQuery: Fragment: RawFragment:}}","system":"grpc","grpc_log":true}
+jaeger-1              | {"level":"info","ts":1757912355.582406,"caller":"grpc@v1.57.0/clientconn.go:1807","msg":"[core][Channel #1] fallback to scheme \"passthrough\"","system":"grpc","grpc_log":true}
+jaeger-1              | {"level":"info","ts":1757912355.582425,"caller":"grpc@v1.57.0/clientconn.go:1815","msg":"[core][Channel #1] parsed dial target is: {URL:{Scheme:passthrough Opaque: User: Host: Path:/localhost:4317 RawPath: OmitHost:false ForceQuery:false RawQuery: Fragment: RawFragment:}}","system":"grpc","grpc_log":true}
+jaeger-1              | {"level":"info","ts":1757912355.5824385,"caller":"grpc@v1.57.0/clientconn.go:1948","msg":"[core][Channel #1] Channel authority set to \"localhost:4317\"","system":"grpc","grpc_log":true}
+jaeger-1              | {"level":"info","ts":1757912355.5975223,"caller":"grpc@v1.57.0/resolver_conn_wrapper.go:238","msg":"[core][Channel #1] Resolver state updated: {\n  \"Addresses\": [\n    {\n      \"Addr\": \"localhost:4317\",\n      \"ServerName\": \"\",\n      \"Attributes\": null,\n      \"BalancerAttributes\": null,\n      \"Type\": 0,\n      \"Metadata\": null\n    }\n  ],\n  \"ServiceConfig\": null,\n  \"Attributes\": null\n} (resolver returned new addresses)","system":"grpc","grpc_log":true}
+jaeger-1              | {"level":"info","ts":1757912355.5988684,"caller":"grpc@v1.57.0/balancer_conn_wrappers.go:192","msg":"[core][Channel #1] Channel switches to new LB policy \"pick_first\"","system":"grpc","grpc_log":true}
+jaeger-1              | {"level":"info","ts":1757912355.5996094,"caller":"grpc@v1.57.0/balancer_conn_wrappers.go:312","msg":"[core][Channel #1 SubChannel #2] Subchannel created","system":"grpc","grpc_log":true}
+jaeger-1              | {"level":"info","ts":1757912355.6010616,"caller":"grpc@v1.57.0/clientconn.go:565","msg":"[core][Channel #1] Channel Connectivity change to CONNECTING","system":"grpc","grpc_log":true}
+jaeger-1              | {"level":"info","ts":1757912355.608365,"caller":"grpc@v1.57.0/clientconn.go:1301","msg":"[core][Channel #1 SubChannel #2] Subchannel Connectivity change to CONNECTING","system":"grpc","grpc_log":true}
+jaeger-1              | {"level":"info","ts":1757912355.610943,"caller":"grpc@v1.57.0/clientconn.go:1414","msg":"[core][Channel #1 SubChannel #2] Subchannel picks a new address \"localhost:4317\" to connect","system":"grpc","grpc_log":true}
+jaeger-1              | {"level":"info","ts":1757912355.6157143,"caller":"memory/factory.go:66","msg":"Memory storage initialized","configuration":{"MaxTraces":0}}
+jaeger-1              | {"level":"info","ts":1757912355.6218708,"caller":"static/strategy_store.go:138","msg":"Loading sampling strategies","filename":"/etc/jaeger/sampling_strategies.json"}
+jaeger-1              | {"level":"warn","ts":1757912355.6573458,"caller":"grpc@v1.57.0/clientconn.go:1476","msg":"[core][Channel #1 SubChannel #2] grpc: addrConn.createTransport failed to connect to {Addr: \"localhost:4317\", ServerName: \"localhost:4317\", }. Err: connection error: desc = \"transport: Error while dialing: dial tcp [::1]:4317: connect: connection refused\"","system":"grpc","grpc_log":true}
+jaeger-1              | {"level":"info","ts":1757912355.6574602,"caller":"grpc@v1.57.0/clientconn.go:1303","msg":"[core][Channel #1 SubChannel #2] Subchannel Connectivity change to TRANSIENT_FAILURE, last error: connection error: desc = \"transport: Error while dialing: dial tcp [::1]:4317: connect: connection refused\"","system":"grpc","grpc_log":true}
+jaeger-1              | {"level":"info","ts":1757912355.6575043,"caller":"grpc@v1.57.0/clientconn.go:565","msg":"[core][Channel #1] Channel Connectivity change to TRANSIENT_FAILURE","system":"grpc","grpc_log":true}
+jaeger-1              | {"level":"info","ts":1757912355.7405002,"caller":"grpc@v1.57.0/server.go:652","msg":"[core][Server #3] Server created","system":"grpc","grpc_log":true}
+jaeger-1              | {"level":"info","ts":1757912355.741504,"caller":"server/grpc.go:104","msg":"Starting jaeger-collector gRPC server","grpc.host-port":"[::]:14250"}
+jaeger-1              | {"level":"info","ts":1757912355.7424946,"caller":"server/http.go:56","msg":"Starting jaeger-collector HTTP server","http host-port":":14268"}
+jaeger-1              | {"level":"info","ts":1757912355.749867,"caller":"server/zipkin.go:52","msg":"Not listening for Zipkin HTTP traffic, port not configured"}
+jaeger-1              | {"level":"info","ts":1757912355.7528574,"caller":"grpc@v1.57.0/server.go:840","msg":"[core][Server #3 ListenSocket #4] ListenSocket created","system":"grpc","grpc_log":true}
+jaeger-1              | {"level":"warn","ts":1757912355.7546504,"caller":"internal@v0.84.0/warning.go:40","msg":"Using the 0.0.0.0 address exposes this server to every network interface, which may facilitate Denial of Service attacks","documentation":"https://github.com/open-telemetry/opentelemetry-collector/blob/main/docs/security-best-practices.md#safeguards-against-denial-of-service-attacks"}
+jaeger-1              | {"level":"info","ts":1757912355.761529,"caller":"grpc@v1.57.0/server.go:652","msg":"[core][Server #5] Server created","system":"grpc","grpc_log":true}
+jaeger-1              | {"level":"info","ts":1757912355.7616074,"caller":"otlpreceiver@v0.84.0/otlp.go:83","msg":"Starting GRPC server","endpoint":"0.0.0.0:4317"}
+jaeger-1              | {"level":"info","ts":1757912355.7639818,"caller":"grpc@v1.57.0/server.go:840","msg":"[core][Server #5 ListenSocket #6] ListenSocket created","system":"grpc","grpc_log":true}
+jaeger-1              | {"level":"warn","ts":1757912355.768076,"caller":"internal@v0.84.0/warning.go:40","msg":"Using the 0.0.0.0 address exposes this server to every network interface, which may facilitate Denial of Service attacks","documentation":"https://github.com/open-telemetry/opentelemetry-collector/blob/main/docs/security-best-practices.md#safeguards-against-denial-of-service-attacks"}
+jaeger-1              | {"level":"info","ts":1757912355.7684243,"caller":"otlpreceiver@v0.84.0/otlp.go:101","msg":"Starting HTTP server","endpoint":"0.0.0.0:4318"}
+jaeger-1              | {"level":"info","ts":1757912355.7704132,"caller":"grpc/builder.go:73","msg":"Agent requested insecure grpc connection to collector(s)"}
+jaeger-1              | {"level":"info","ts":1757912355.7717776,"caller":"grpc@v1.57.0/clientconn.go:477","msg":"[core][Channel #7] Channel created","system":"grpc","grpc_log":true}
+jaeger-1              | {"level":"info","ts":1757912355.7725773,"caller":"grpc@v1.57.0/clientconn.go:1786","msg":"[core][Channel #7] original dial target is: \":14250\"","system":"grpc","grpc_log":true}
+jaeger-1              | {"level":"info","ts":1757912355.7726183,"caller":"grpc@v1.57.0/clientconn.go:1791","msg":"[core][Channel #7] dial target \":14250\" parse failed: parse \":14250\": missing protocol scheme","system":"grpc","grpc_log":true}
+jaeger-1              | {"level":"info","ts":1757912355.772636,"caller":"grpc@v1.57.0/clientconn.go:1807","msg":"[core][Channel #7] fallback to scheme \"passthrough\"","system":"grpc","grpc_log":true}
+jaeger-1              | {"level":"info","ts":1757912355.7727418,"caller":"grpc@v1.57.0/clientconn.go:1815","msg":"[core][Channel #7] parsed dial target is: {URL:{Scheme:passthrough Opaque: User: Host: Path:/:14250 RawPath: OmitHost:false ForceQuery:false RawQuery: Fragment: RawFragment:}}","system":"grpc","grpc_log":true}
+jaeger-1              | {"level":"info","ts":1757912355.772773,"caller":"grpc@v1.57.0/clientconn.go:1948","msg":"[core][Channel #7] Channel authority set to \"localhost:14250\"","system":"grpc","grpc_log":true}
+jaeger-1              | {"level":"info","ts":1757912355.7728853,"caller":"grpc@v1.57.0/resolver_conn_wrapper.go:238","msg":"[core][Channel #7] Resolver state updated: {\n  \"Addresses\": [\n    {\n      \"Addr\": \":14250\",\n      \"ServerName\": \"\",\n      \"Attributes\": null,\n      \"BalancerAttributes\": null,\n      \"Type\": 0,\n      \"Metadata\": null\n    }\n  ],\n  \"ServiceConfig\": null,\n  \"Attributes\": null\n} (resolver returned new addresses)","system":"grpc","grpc_log":true}
+jaeger-1              | {"level":"info","ts":1757912355.773068,"caller":"grpc@v1.57.0/balancer_conn_wrappers.go:192","msg":"[core][Channel #7] Channel switches to new LB policy \"round_robin\"","system":"grpc","grpc_log":true}
+jaeger-1              | {"level":"info","ts":1757912355.7741323,"caller":"grpc@v1.57.0/balancer_conn_wrappers.go:312","msg":"[core][Channel #7 SubChannel #8] Subchannel created","system":"grpc","grpc_log":true}
+jaeger-1              | {"level":"info","ts":1757912355.7748733,"caller":"grpc@v1.57.0/clientconn.go:1301","msg":"[core][Channel #7 SubChannel #8] Subchannel Connectivity change to CONNECTING","system":"grpc","grpc_log":true}
+jaeger-1              | {"level":"info","ts":1757912355.7753887,"caller":"grpc@v1.57.0/clientconn.go:1414","msg":"[core][Channel #7 SubChannel #8] Subchannel picks a new address \":14250\" to connect","system":"grpc","grpc_log":true}
+jaeger-1              | {"level":"info","ts":1757912355.7743256,"caller":"base/balancer.go:177","msg":"[roundrobin]roundrobinPicker: Build called with info: {map[]}","system":"grpc","grpc_log":true}
+jaeger-1              | {"level":"info","ts":1757912355.7922385,"caller":"grpc@v1.57.0/clientconn.go:565","msg":"[core][Channel #7] Channel Connectivity change to CONNECTING","system":"grpc","grpc_log":true}
+jaeger-1              | {"level":"info","ts":1757912355.8060536,"caller":"./main.go:259","msg":"Starting agent"}
+jaeger-1              | {"level":"info","ts":1757912355.806999,"caller":"querysvc/query_service.go:134","msg":"Archive storage not created","reason":"archive storage not supported"}
+jaeger-1              | {"level":"info","ts":1757912355.8090582,"caller":"app/flags.go:146","msg":"Archive storage not initialized"}
+jaeger-1              | {"level":"info","ts":1757912355.8079379,"caller":"grpc/builder.go:113","msg":"Checking connection to collector"}
+jaeger-1              | {"level":"info","ts":1757912355.8181326,"caller":"grpc/builder.go:124","msg":"Agent collector connection state change","dialTarget":":14250","status":"CONNECTING"}
+jaeger-1              | {"level":"info","ts":1757912355.8094504,"caller":"app/agent.go:69","msg":"Starting jaeger-agent HTTP server","http-port":5778}
+jaeger-1              | {"level":"info","ts":1757912355.8164897,"caller":"grpc@v1.57.0/server.go:652","msg":"[core][Server #10] Server created","system":"grpc","grpc_log":true}
+jaeger-1              | {"level":"info","ts":1757912355.8246891,"caller":"grpc@v1.57.0/clientconn.go:1301","msg":"[core][Channel #7 SubChannel #8] Subchannel Connectivity change to READY","system":"grpc","grpc_log":true}
+jaeger-1              | {"level":"info","ts":1757912355.825034,"caller":"base/balancer.go:177","msg":"[roundrobin]roundrobinPicker: Build called with info: {map[SubConn(id:8):{{Addr: \":14250\", ServerName: \"\", }}]}","system":"grpc","grpc_log":true}
+jaeger-1              | {"level":"info","ts":1757912355.8251202,"caller":"grpc@v1.57.0/clientconn.go:565","msg":"[core][Channel #7] Channel Connectivity change to READY","system":"grpc","grpc_log":true}
+jaeger-1              | {"level":"info","ts":1757912355.825142,"caller":"grpc/builder.go:124","msg":"Agent collector connection state change","dialTarget":":14250","status":"READY"}
+jaeger-1              | {"level":"info","ts":1757912355.8244476,"caller":"grpc@v1.57.0/clientconn.go:477","msg":"[core][Channel #12] Channel created","system":"grpc","grpc_log":true}
+jaeger-1              | {"level":"info","ts":1757912355.827581,"caller":"grpc@v1.57.0/clientconn.go:1786","msg":"[core][Channel #12] original dial target is: \":16685\"","system":"grpc","grpc_log":true}
+jaeger-1              | {"level":"info","ts":1757912355.827699,"caller":"grpc@v1.57.0/clientconn.go:1791","msg":"[core][Channel #12] dial target \":16685\" parse failed: parse \":16685\": missing protocol scheme","system":"grpc","grpc_log":true}
+jaeger-1              | {"level":"info","ts":1757912355.8277812,"caller":"grpc@v1.57.0/clientconn.go:1807","msg":"[core][Channel #12] fallback to scheme \"passthrough\"","system":"grpc","grpc_log":true}
+jaeger-1              | {"level":"info","ts":1757912355.8279302,"caller":"grpc@v1.57.0/clientconn.go:1815","msg":"[core][Channel #12] parsed dial target is: {URL:{Scheme:passthrough Opaque: User: Host: Path:/:16685 RawPath: OmitHost:false ForceQuery:false RawQuery: Fragment: RawFragment:}}","system":"grpc","grpc_log":true}
+jaeger-1              | {"level":"info","ts":1757912355.8296568,"caller":"grpc@v1.57.0/clientconn.go:1948","msg":"[core][Channel #12] Channel authority set to \"localhost:16685\"","system":"grpc","grpc_log":true}
+jaeger-1              | {"level":"info","ts":1757912355.8300326,"caller":"grpc@v1.57.0/resolver_conn_wrapper.go:238","msg":"[core][Channel #12] Resolver state updated: {\n  \"Addresses\": [\n    {\n      \"Addr\": \":16685\",\n      \"ServerName\": \"\",\n      \"Attributes\": null,\n      \"BalancerAttributes\": null,\n      \"Type\": 0,\n      \"Metadata\": null\n    }\n  ],\n  \"ServiceConfig\": null,\n  \"Attributes\": null\n} (resolver returned new addresses)","system":"grpc","grpc_log":true}
+jaeger-1              | {"level":"info","ts":1757912355.8302763,"caller":"grpc@v1.57.0/balancer_conn_wrappers.go:192","msg":"[core][Channel #12] Channel switches to new LB policy \"pick_first\"","system":"grpc","grpc_log":true}
+jaeger-1              | {"level":"info","ts":1757912355.8304367,"caller":"grpc@v1.57.0/balancer_conn_wrappers.go:312","msg":"[core][Channel #12 SubChannel #13] Subchannel created","system":"grpc","grpc_log":true}
+jaeger-1              | {"level":"info","ts":1757912355.8305848,"caller":"grpc@v1.57.0/clientconn.go:565","msg":"[core][Channel #12] Channel Connectivity change to CONNECTING","system":"grpc","grpc_log":true}
+jaeger-1              | {"level":"info","ts":1757912355.8326976,"caller":"grpc@v1.57.0/clientconn.go:1301","msg":"[core][Channel #12 SubChannel #13] Subchannel Connectivity change to CONNECTING","system":"grpc","grpc_log":true}
+jaeger-1              | {"level":"info","ts":1757912355.8331602,"caller":"grpc@v1.57.0/clientconn.go:1414","msg":"[core][Channel #12 SubChannel #13] Subchannel picks a new address \":16685\" to connect","system":"grpc","grpc_log":true}
+jaeger-1              | {"level":"warn","ts":1757912355.8382313,"caller":"grpc@v1.57.0/clientconn.go:1476","msg":"[core][Channel #12 SubChannel #13] grpc: addrConn.createTransport failed to connect to {Addr: \":16685\", ServerName: \"localhost:16685\", }. Err: connection error: desc = \"transport: Error while dialing: dial tcp :16685: connect: connection refused\"","system":"grpc","grpc_log":true}
+jaeger-1              | {"level":"info","ts":1757912355.8384778,"caller":"grpc@v1.57.0/clientconn.go:1303","msg":"[core][Channel #12 SubChannel #13] Subchannel Connectivity change to TRANSIENT_FAILURE, last error: connection error: desc = \"transport: Error while dialing: dial tcp :16685: connect: connection refused\"","system":"grpc","grpc_log":true}
+jaeger-1              | {"level":"info","ts":1757912355.849296,"caller":"app/server.go:215","msg":"Query server started","http_addr":"[::]:16686","grpc_addr":"[::]:16685"}
+jaeger-1              | {"level":"info","ts":1757912355.849951,"caller":"app/server.go:279","msg":"Starting HTTP server","port":16686,"addr":":16686"}
+jaeger-1              | {"level":"info","ts":1757912355.850166,"caller":"app/server.go:298","msg":"Starting GRPC server","port":16685,"addr":":16685"}
+jaeger-1              | {"level":"info","ts":1757912355.8502827,"caller":"grpc@v1.57.0/server.go:840","msg":"[core][Server #10 ListenSocket #14] ListenSocket created","system":"grpc","grpc_log":true}
+jaeger-1              | {"level":"info","ts":1757912355.849892,"caller":"healthcheck/handler.go:129","msg":"Health Check state change","status":"ready"}
+jaeger-1              | {"level":"info","ts":1757912355.8661575,"caller":"grpc@v1.57.0/clientconn.go:565","msg":"[core][Channel #12] Channel Connectivity change to TRANSIENT_FAILURE","system":"grpc","grpc_log":true}
+jaeger-1              | {"level":"info","ts":1757912356.6577756,"caller":"grpc@v1.57.0/clientconn.go:1303","msg":"[core][Channel #1 SubChannel #2] Subchannel Connectivity change to IDLE, last error: connection error: desc = \"transport: Error while dialing: dial tcp [::1]:4317: connect: connection refused\"","system":"grpc","grpc_log":true}
+jaeger-1              | {"level":"info","ts":1757912356.6578984,"caller":"grpc@v1.57.0/clientconn.go:1301","msg":"[core][Channel #1 SubChannel #2] Subchannel Connectivity change to CONNECTING","system":"grpc","grpc_log":true}
+jaeger-1              | {"level":"info","ts":1757912356.6585436,"caller":"grpc@v1.57.0/clientconn.go:1414","msg":"[core][Channel #1 SubChannel #2] Subchannel picks a new address \"localhost:4317\" to connect","system":"grpc","grpc_log":true}
+jaeger-1              | {"level":"info","ts":1757912356.6664965,"caller":"grpc@v1.57.0/clientconn.go:1301","msg":"[core][Channel #1 SubChannel #2] Subchannel Connectivity change to READY","system":"grpc","grpc_log":true}
+jaeger-1              | {"level":"info","ts":1757912356.6672554,"caller":"grpc@v1.57.0/clientconn.go:565","msg":"[core][Channel #1] Channel Connectivity change to READY","system":"grpc","grpc_log":true}
+jaeger-1              | {"level":"info","ts":1757912356.8455327,"caller":"grpc@v1.57.0/clientconn.go:1303","msg":"[core][Channel #12 SubChannel #13] Subchannel Connectivity change to IDLE, last error: connection error: desc = \"transport: Error while dialing: dial tcp :16685: connect: connection refused\"","system":"grpc","grpc_log":true}
+jaeger-1              | {"level":"info","ts":1757912356.8456247,"caller":"grpc@v1.57.0/clientconn.go:1301","msg":"[core][Channel #12 SubChannel #13] Subchannel Connectivity change to CONNECTING","system":"grpc","grpc_log":true}
+jaeger-1              | {"level":"info","ts":1757912356.8456376,"caller":"grpc@v1.57.0/clientconn.go:1414","msg":"[core][Channel #12 SubChannel #13] Subchannel picks a new address \":16685\" to connect","system":"grpc","grpc_log":true}
+jaeger-1              | {"level":"info","ts":1757912356.8562498,"caller":"grpc@v1.57.0/clientconn.go:1301","msg":"[core][Channel #12 SubChannel #13] Subchannel Connectivity change to READY","system":"grpc","grpc_log":true}
+jaeger-1              | {"level":"info","ts":1757912356.8563263,"caller":"grpc@v1.57.0/clientconn.go:565","msg":"[core][Channel #12] Channel Connectivity change to READY","system":"grpc","grpc_log":true}
+otel-collector-1      | 2025-09-15T04:59:17.289Z        info    service/telemetry.go:90 Setting up own telemetry...
+otel-collector-1      | 2025-09-15T04:59:17.295Z        info    service/telemetry.go:116        Serving Prometheus metrics      {"address": ":8889", "level": "Basic"}
+otel-collector-1      | 2025-09-15T04:59:17.295Z        info    exporter@v0.73.0/exporter.go:286        Deprecated component. Will be removed in future releases.       {"kind": "exporter", "data_type": "traces", "name": "jaeger"}
+otel-collector-1      | 2025-09-15T04:59:17.297Z        warn    jaegerexporter@v0.73.0/factory.go:57    jaeger exporter is deprecated and will be removed in July 2023. See https://github.com/open-telemetry/opentelemetry-specification/pull/2858 for more details.   {"kind": "exporter", "data_type": "traces", "name": "jaeger"}
+otel-collector-1      | 2025-09-15T04:59:17.321Z        info    service/service.go:136  Starting otelcol...     {"Version": "0.73.0", "NumCPU": 4}
+otel-collector-1      | 2025-09-15T04:59:17.323Z        info    extensions/extensions.go:41     Starting extensions...
+otel-collector-1      | 2025-09-15T04:59:17.334Z        info    jaegerexporter@v0.73.0/exporter.go:184  State of the connection with the Jaeger Collector backend       {"kind": "exporter", "data_type": "traces", "name": "jaeger", "state": "CONNECTING"}
+otel-collector-1      | 2025-09-15T04:59:17.335Z        warn    internal/warning.go:51  Using the 0.0.0.0 address exposes this server to every network interface, which may facilitate Denial of Service attacks        {"kind": "receiver", "name": "otlp", "data_type": "traces", "documentation": "https://github.com/open-telemetry/opentelemetry-collector/blob/main/docs/security-best-practices.md#safeguards-against-denial-of-service-attacks"}
+otel-collector-1      | 2025-09-15T04:59:17.349Z        info    otlpreceiver@v0.73.0/otlp.go:94 Starting GRPC server   {"kind": "receiver", "name": "otlp", "data_type": "traces", "endpoint": "0.0.0.0:4317"}
+otel-collector-1      | 2025-09-15T04:59:17.350Z        warn    internal/warning.go:51  Using the 0.0.0.0 address exposes this server to every network interface, which may facilitate Denial of Service attacks        {"kind": "receiver", "name": "otlp", "data_type": "traces", "documentation": "https://github.com/open-telemetry/opentelemetry-collector/blob/main/docs/security-best-practices.md#safeguards-against-denial-of-service-attacks"}
+otel-collector-1      | 2025-09-15T04:59:17.350Z        info    otlpreceiver@v0.73.0/otlp.go:112        Starting HTTP server    {"kind": "receiver", "name": "otlp", "data_type": "traces", "endpoint": "0.0.0.0:4318"}
+otel-collector-1      | 2025-09-15T04:59:17.350Z        info    service/service.go:153  Everything is ready. Begin running and processing data.
+otel-collector-1      | 2025-09-15T04:59:18.336Z        info    jaegerexporter@v0.73.0/exporter.go:184  State of the connection with the Jaeger Collector backend       {"kind": "exporter", "data_type": "traces", "name": "jaeger", "state": "READY"}
+website-status-app-1  | INFO:root:Performing initial website check...
+website-status-app-1  | INFO:root:Performing periodic website checks...
+website-status-app-1  |  * Serving Flask app 'website_status_performance'
+website-status-app-1  |  * Debug mode: off
+website-status-app-1  | INFO:werkzeug:WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+website-status-app-1  |  * Running on all addresses (0.0.0.0)
+website-status-app-1  |  * Running on http://127.0.0.1:5000
+website-status-app-1  |  * Running on http://172.20.0.4:5000
+website-status-app-1  | INFO:werkzeug:Press CTRL+C to quit
+website-status-app-1  | INFO:root:Performing periodic website checks...
+website-status-app-1  | INFO:root:Performing periodic website checks...
+website-status-app-1  | INFO:root:Performing periodic website checks...
+website-status-app-1  | INFO:root:Performing periodic website checks...
+website-status-app-1  | INFO:root:Performing periodic website checks...
+website-status-app-1  | INFO:root:Performing periodic website checks...
+website-status-app-1  | INFO:root:Performing periodic website checks...
+website-status-app-1  | INFO:root:Performing periodic website checks...
+website-status-app-1  | INFO:root:Performing periodic website checks...
+website-status-app-1  | INFO:root:Performing periodic website checks...
+website-status-app-1  | INFO:root:Performing periodic website checks...
+website-status-app-1  | INFO:root:Performing periodic website checks...
+website-status-app-1  | INFO:root:Performing periodic website checks...
+website-status-app-1  | INFO:root:Performing periodic website checks...
+website-status-app-1  | INFO:root:Performing periodic website checks...
+website-status-app-1  | INFO:root:Performing periodic website checks...
+website-status-app-1  | INFO:root:Performing periodic website checks...
+website-status-app-1  | INFO:root:Performing periodic website checks...
+website-status-app-1  | INFO:root:Performing periodic website checks...
+website-status-app-1  | INFO:root:Performing periodic website checks...
+website-status-app-1  | INFO:root:Performing periodic website checks...
+website-status-app-1  | INFO:werkzeug:172.20.0.1 - - [15/Sep/2025 05:23:37] "GET / HTTP/1.1" 200 -
+website-status-app-1  | INFO:werkzeug:172.20.0.1 - - [15/Sep/2025 05:23:44] "GET /metrics HTTP/1.1" 200 -
+website-status-app-1  | INFO:root:Performing periodic website checks...
+website-status-app-1  | INFO:root:Performing periodic website checks...
+website-status-app-1  | INFO:werkzeug:172.20.0.1 - - [15/Sep/2025 05:25:06] "GET / HTTP/1.1" 200 -
+website-status-app-1  | INFO:werkzeug:172.20.0.1 - - [15/Sep/2025 05:25:10] "GET /metrics HTTP/1.1" 200 -
+website-status-app-1  | INFO:root:Performing periodic website checks...
+website-status-app-1  | INFO:root:Performing periodic website checks...
+website-status-app-1  | INFO:root:Performing periodic website checks...
+website-status-app-1  | INFO:root:Performing periodic website checks...
+website-status-app-1  | INFO:root:Performing periodic website checks...
+website-status-app-1  | INFO:root:Performing periodic website checks...
+
+
+v View in Docker Desktop   o View Config   w Enable Watch

@@ -1,0 +1,4 @@
+kubectl apply -f prometheus-alert-rules.yaml
+kubectl apply -f alertmanager-config.yaml
+kubectl apply -f alertmanager-deployment.yaml
+kubectl apply -f prometheus.yaml

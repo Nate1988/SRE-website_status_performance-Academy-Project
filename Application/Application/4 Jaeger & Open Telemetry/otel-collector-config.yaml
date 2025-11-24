@@ -1,0 +1,20 @@
+receivers:
+  otlp:
+    protocols:
+      grpc:
+      http:
+
+exporters:
+  jaeger:
+    endpoint: "jaeger:14250"
+    tls:
+      insecure: true
+
+service:
+  telemetry:
+    metrics:
+      address: ":8889"   # ✅ Changed to avoid conflict with existing service
+  pipelines:
+    traces:
+      receivers: [otlp]
+      exporters: [jaeger]

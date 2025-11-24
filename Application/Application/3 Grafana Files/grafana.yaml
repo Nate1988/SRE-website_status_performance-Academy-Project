@@ -1,0 +1,182 @@
+# 1. Dashboard ConfigMap
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: grafana-dashboards-config
+  namespace: website
+  labels:
+    app: grafana
+    grafana_dashboard: "1"
+data:
+  dashboards.yaml: |
+    apiVersion: 1
+    providers:
+      - name: 'default'
+        orgId: 1
+        folder: ''
+        type: file
+        disableDeletion: false
+        options:
+          path: /etc/grafana/provisioning/dashboards
+  example-dashboard.json: |
+    {
+      "id": null,
+      "uid": "example-dashboard",
+      "title": "Website + System Metrics",
+      "tags": [],
+      "style": "dark",
+      "timezone": "browser",
+      "editable": true,
+      "schemaVersion": 36,
+      "version": 1,
+      "panels": [
+        {
+          "id": 1,
+          "title": "Website Monitor Status (up)",
+          "type": "timeseries",
+          "datasource": "Prometheus",
+          "gridPos": { "h": 6, "w": 24, "x": 0, "y": 0 },
+          "targets": [
+            {
+              "expr": "up{job=\"website-monitor\"}",
+              "refId": "A"
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "title": "Website Availability (website_up)",
+          "type": "timeseries",
+          "datasource": "Prometheus",
+          "gridPos": { "h": 6, "w": 24, "x": 0, "y": 6 },
+          "targets": [
+            {
+              "expr": "website_up",
+              "refId": "A"
+            }
+          ]
+        },
+        {
+          "id": 3,
+          "title": "Website Response Time (website_response_time_seconds)",
+          "type": "timeseries",
+          "datasource": "Prometheus",
+          "gridPos": { "h": 6, "w": 24, "x": 0, "y": 12 },
+          "targets": [
+            {
+              "expr": "website_response_time_seconds",
+              "refId": "A"
+            }
+          ]
+        },
+        {
+          "id": 4,
+          "title": "Pod CPU Usage (cAdvisor)",
+          "type": "timeseries",
+          "datasource": "Prometheus",
+          "gridPos": { "h": 6, "w": 24, "x": 0, "y": 18 },
+          "targets": [
+            {
+              "expr": "sum(rate(container_cpu_usage_seconds_total[5m])) by (container_label_io_kubernetes_pod_name)",
+              "refId": "A"
+            }
+          ]
+        }
+      ]
+    }
+
+---
+
+# 2. Datasource ConfigMap
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: grafana-datasources
+  namespace: website
+  labels:
+    app: grafana
+    grafana_datasource: "1"
+data:
+  prometheus-datasource.yaml: |
+    apiVersion: 1
+    datasources:
+      - name: Prometheus
+        type: prometheus
+        access: proxy
+        url: http://prometheus-service:9090
+        isDefault: true
+
+---
+
+# 3. Grafana Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: grafana
+  namespace: website
+  labels:
+    app: grafana
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: grafana
+  template:
+    metadata:
+      labels:
+        app: grafana
+    spec:
+      containers:
+        - name: grafana
+          image: grafana/grafana:latest
+          ports:
+            - containerPort: 3000
+          env:
+            - name: GF_SECURITY_ADMIN_USER
+              value: admin
+            - name: GF_SECURITY_ADMIN_PASSWORD
+              value: admin
+          volumeMounts:
+            - name: grafana-storage
+              mountPath: /var/lib/grafana
+            - name: datasource-config
+              mountPath: /etc/grafana/provisioning/datasources
+            - name: dashboard-config
+              mountPath: /etc/grafana/provisioning/dashboards
+            - name: dashboards
+              mountPath: /etc/grafana/provisioning/dashboards/dashboards
+      volumes:
+        - name: grafana-storage
+          emptyDir: {}
+        - name: datasource-config
+          configMap:
+            name: grafana-datasources
+        - name: dashboard-config
+          configMap:
+            name: grafana-dashboards-config
+            items:
+              - key: dashboards.yaml
+                path: dashboards.yaml
+        - name: dashboards
+          configMap:
+            name: grafana-dashboards-config
+            items:
+              - key: example-dashboard.json
+                path: example-dashboard.json
+
+---
+
+# 4. Grafana Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: grafana-service
+  namespace: website
+spec:
+  selector:
+    app: grafana
+  ports:
+    - protocol: TCP
+      port: 3000
+      targetPort: 3000
+  type: ClusterIP

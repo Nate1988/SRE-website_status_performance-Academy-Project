@@ -1,0 +1,141 @@
+kreator@Dreams:~$ curl http://localhost:9300/metrics
+# HELP python_gc_objects_collected_total Objects collected during gc
+# TYPE python_gc_objects_collected_total counter
+python_gc_objects_collected_total{generation="0"} 315.0
+python_gc_objects_collected_total{generation="1"} 323.0
+python_gc_objects_collected_total{generation="2"} 0.0
+# HELP python_gc_objects_uncollectable_total Uncollectable objects found during GC
+# TYPE python_gc_objects_uncollectable_total counter
+python_gc_objects_uncollectable_total{generation="0"} 0.0
+python_gc_objects_uncollectable_total{generation="1"} 0.0
+python_gc_objects_uncollectable_total{generation="2"} 0.0
+# HELP python_gc_collections_total Number of times this generation was collected
+# TYPE python_gc_collections_total counter
+python_gc_collections_total{generation="0"} 84.0
+python_gc_collections_total{generation="1"} 7.0
+python_gc_collections_total{generation="2"} 0.0
+# HELP python_info Python platform information
+# TYPE python_info gauge
+python_info{implementation="CPython",major="3",minor="11",patchlevel="13",version="3.11.13"} 1.0
+# HELP process_virtual_memory_bytes Virtual memory size in bytes.
+# TYPE process_virtual_memory_bytes gauge
+process_virtual_memory_bytes 2.72146432e+08
+# HELP process_resident_memory_bytes Resident memory size in bytes.
+# TYPE process_resident_memory_bytes gauge
+process_resident_memory_bytes 4.308992e+07
+# HELP process_start_time_seconds Start time of the process since unix epoch in seconds.
+# TYPE process_start_time_seconds gauge
+process_start_time_seconds 1.75688190562e+09
+# HELP process_cpu_seconds_total Total user and system CPU time spent in seconds.
+# TYPE process_cpu_seconds_total counter
+process_cpu_seconds_total 1.47
+# HELP process_open_fds Number of open file descriptors.
+# TYPE process_open_fds gauge
+process_open_fds 8.0
+# HELP process_max_fds Maximum number of open file descriptors.
+# TYPE process_max_fds gauge
+process_max_fds 1.048576e+06
+# HELP website_response_time_seconds Response time of websites
+# TYPE website_response_time_seconds gauge
+website_response_time_seconds{url="https://www.youtube.com/"} 0.584
+website_response_time_seconds{url="https://www.facebook.com/?locale=es_LA"} 0.554
+website_response_time_seconds{url="https://www.instagram.com/"} 0.614
+website_response_time_seconds{url="https://x.com/?lang=es"} 0.365
+website_response_time_seconds{url="https://web.telegram.org/k/"} 0.616
+website_response_time_seconds{url="https://www.reddit.com/"} 0.596
+website_response_time_seconds{url="https://www.snapchat.com/"} 0.419
+website_response_time_seconds{url="https://ibm.com/lightning/page/home"} 1.063
+website_response_time_seconds{url="https://www.tiktok.com/es/"} 0.56
+# HELP website_up Website up status (1=up, 0=down)
+# TYPE website_up gauge
+website_up{url="https://www.youtube.com/"} 1.0
+website_up{url="https://www.facebook.com/?locale=es_LA"} 1.0
+website_up{url="https://www.instagram.com/"} 1.0
+website_up{url="https://x.com/?lang=es"} 1.0
+website_up{url="https://web.telegram.org/k/"} 1.0
+website_up{url="https://www.reddit.com/"} 1.0
+website_up{url="https://www.snapchat.com/"} 0.0
+website_up{url="https://ibm.com/lightning/page/home"} 0.0
+website_up{url="https://www.tiktok.com/es/"} 1.0
+kreator@Dreams:~$ curl http://localhost:5000/
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Website Status Checker</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        table { width: 80%; border-collapse: collapse; }
+        th, td { padding: 10px; border: 1px solid #ccc; text-align: left; }
+        th { background-color: #f2f2f2; }
+        .up { color: green; }
+        .down { color: red; }
+    </style>
+</head>
+<body>
+    <h2>Website Status & Performance (Auto-Refreshed)</h2>
+
+    <table>
+        <tr>
+            <th>URL</th>
+            <th>Status</th>
+            <th>Response Time (s)</th>
+        </tr>
+
+        <tr>
+            <td>https://www.youtube.com/</td>
+            <td class="up">Up</td>
+            <td>0.552</td>
+        </tr>
+
+        <tr>
+            <td>https://www.facebook.com/?locale=es_LA</td>
+            <td class="up">Up</td>
+            <td>0.512</td>
+        </tr>
+
+        <tr>
+            <td>https://www.instagram.com/</td>
+            <td class="up">Up</td>
+            <td>0.571</td>
+        </tr>
+
+        <tr>
+            <td>https://x.com/?lang=es</td>
+            <td class="up">Up</td>
+            <td>0.353</td>
+        </tr>
+
+        <tr>
+            <td>https://web.telegram.org/k/</td>
+            <td class="up">Up</td>
+            <td>0.668</td>
+        </tr>
+
+        <tr>
+            <td>https://www.reddit.com/</td>
+            <td class="up">Up</td>
+            <td>0.645</td>
+        </tr>
+
+        <tr>
+            <td>https://www.snapchat.com/</td>
+            <td class="down">Down</td>
+            <td>0.408</td>
+        </tr>
+
+        <tr>
+            <td>https://ibm.com/lightning/page/home</td>
+            <td class="down">Down</td>
+            <td>1.009</td>
+        </tr>
+
+        <tr>
+            <td>https://www.tiktok.com/es/</td>
+            <td class="up">Up</td>
+            <td>0.52</td>
+        </tr>
+
+    </table>
+
+</body>
