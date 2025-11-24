@@ -14,7 +14,7 @@
 
 This project implements a Python-based uptime monitoring application built with Flask and Requests. It integrates seamlessly with Prometheus for metric scraping and uses Grafana to visualize performance and availability metrics through custom dashboards. Additionally, the system includes Jaeger via OpenTelemetry to provide distributed tracing across application components, enabling deep visibility into request flows and performance bottlenecks.
 
-The entire solution runs in a WSL Ubuntu Kubernetes environment, where Prometheus Alertmanager is configured to trigger real-time alerts in case of service outages, latency spikes, or other system failures. Grafana dashboards, Jaeger tracing views, and alerts together deliver a complete, observable monitoring stack.: 
+The entire solution runs in a WSL Ubuntu Kubernetes environment, where Prometheus Alertmanager is configured to trigger real-time alerts in case of service outages, latency spikes, or other system failures. Grafana dashboards, Jaeger tracing views, and alerts together deliver a complete, observable monitoring stack.
 
 ## Table of Contents
 
